@@ -223,7 +223,7 @@ After ````steps```` comes the different, well, steps of the workflow. First we l
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 ````
 
-Then a resource group is created, using the **Azure CLI** with the ````az group create```` command. The resource group is the "container" for the resources in Azure. All resources that exist in Azure must "live" inside a **Resource Group**
+Then a resource group is created, using the **Azure CLI** with the ````az group create```` command. The resource group is the "container" for the resources in Azure. All resources that exist in Azure must "live" inside a **Resource Group**. Note that the name is picked up from the environment variable ````AZURE_RESOURCE_GROUP````, and that the location for the RG is in **West Europe**.
 
 ````yaml
 # Create Resource Group
@@ -247,7 +247,7 @@ Finally, the AKS cluster is created, using Azure CLI
 
 This last command, uses two files as input, a template file and a parameter file. The template file contains the basic definitions of the ARM template, and the parameters file contains parameters which are inserted into the template.
 
-The template file looks like this:
+The template file, which is located in ````./arm-templates/template.json```` looks like this:
 
 ````yaml
 {  
@@ -384,7 +384,7 @@ The template file looks like this:
  }
 ````
 
-As you may have noticed, the template file contains references to the **parameters**. These are defined in the parameters file:
+As you may have noticed, the template file contains references to the **parameters**. These are defined in the parameters file. The parameter file is located in ````./arm-templates/params.json```` and looks like this:
 
 ````yaml
 {
