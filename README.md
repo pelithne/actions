@@ -148,7 +148,7 @@ Now, in order for this pipeline to become active, you need to edit the file and 
 
 
 
-After opening the file you could for instance you could add a comment on the second line after the hash-sign (````#````).
+After opening the file you could for instance add a comment on the second line after the hash-sign (````#````).
 
 Then commit the change by clicking the **start commit** button
 
