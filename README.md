@@ -388,15 +388,15 @@ As you may have noticed, the template file contains references to the **paramete
 
 ````yaml
 {
-	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.0",
-	"parameters": {
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
         "resourceName": {
-			"value": "k8s"
-		},
-		"dnsPrefix": {
-			"value": "dns"
-		},
+      "value": "k8s"
+    },
+    "dnsPrefix": {
+      "value": "dns"
+    },
         "sshRSAPublicKey": {
             "reference": {
                 "keyVault": {
@@ -405,10 +405,10 @@ As you may have noticed, the template file contains references to the **paramete
                 "secretName": "AKS-secret"
             }
         },
-		"servicePrincipalClientId": {
-			"value": "52b63a54-cdfb-44e7-8955-624c74ef11f3"
-		},
-		"agentVMSize": {
+    "servicePrincipalClientId": {
+      "value": "52b63a54-cdfb-44e7-8955-624c74ef11f3"
+    },
+    "agentVMSize": {
             "value": "Standard_B2s"
         },
         "agentCount": {
@@ -425,6 +425,6 @@ As you may have noticed, the template file contains references to the **paramete
               "secretName": "aks-sp"
             }
           }
-	}
+  }
 }
 ````
