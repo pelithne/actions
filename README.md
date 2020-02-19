@@ -35,6 +35,7 @@ Lets use Azure CLoud shell to do this. In your cloud shell, do the following:
 ````bash
 az ad sp create-for-rbac --sdk-auth --name actionsSP
 ````
+This will create a Service Principal that has the role **Contributor** in your Azure subscription. To read more about roles, have a look here: <https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles>
 
 Output from this command is a json object, and should look something like the below. You will need this output in a later step, so keep it available somehow.
 ````
@@ -52,7 +53,7 @@ Output from this command is a json object, and should look something like the be
 }
 ````
 
-For instance, copy this and paste it into a text editor.
+For instance, copy this and paste it into a text editor. Do not share it with anyone, since this can be used to log into your Azure account. In other words: if you share it, prepare to have someone using your azure account to mine bitcoins :-)
 
 ## Fork Github repository
 
