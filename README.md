@@ -72,7 +72,7 @@ You should now get a forked repository in your account, which looks similar to t
 
 When you browse around the files, you will notice that the repository has some template files in the ```` 	arm-templates```` folder, and a pipeline definition in ````.github/workflows````. 
 
-More on this later.
+The templates are actually **ARM Templates** (Azure Resource Management Templates) and contain the defintions of the resources you will deploy to azure (in this case, a Kubernetes cluster)
 
 ## Create the Service Principal Secret
 
