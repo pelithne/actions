@@ -22,10 +22,6 @@ Azure Cloud Shell is a web based shell which has a lot of good tools pre-install
 
 Start cloud shell by typing the address ````shell.azure.com```` into a web browser. If you have not used cloud shell before, you will be asked to create a storage location for cloud shell. Accept that and make sure that you run bash as your shell (not powershell).
 
-**Protip: You can use ctrl-c to copy text in cloud shell. To paste you have to use shift-insert, or use the right mouse button -> paste. If you are on a Mac, you can use the "normal" Cmd+C/Cmd+V.**
-
-**Protip II: Cloud Shell will time out after 20 minutes of inactivity. When you log back in, you will end up in your home directory, so be sure to ````cd```` into where you are supposed to be.**
-
 
 ## Create a service principal
 You need to somehow allow Github to act on "your behalf" when deploying things in Azure. The way this is done, is by creating a **Service Principal**. 
