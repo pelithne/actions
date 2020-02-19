@@ -37,16 +37,16 @@ The easiest way to create a service principal is by using **azure cli**, a.k.a `
 Lets use Azure CLoud shell to do this. In your cloud shell, do the following:
 
 ````bash
-az ad sp create-for-rbac --skip-assignment --name AKSClusterSP
+az ad sp create-for-rbac --sdk-auth --name actionsSP
 ````
 
 Output from this command is a json object, and should look something like the below. You will need this output in a later step, so keep it available somehow.
 ````
 {
-  "clientId": "96682090-8886-41f5-8c66-032df51cd274",
-  "clientSecret": "8a2feb44-e103-4158-a88d-c83df6d6202e",
-  "subscriptionId": "6f66105f-d352-482f-970b-a1d2a587fb64",
-  "tenantId": "72f988bf-86f1-41af-91ab-2d7cd023db47",
+  "clientId": "8e65cbad-bc58-4cc7-88f4-4eada9450c7d",
+  "clientSecret": "869118ba-a0e1-4bd7-a746-fbeda735bdc6",
+  "subscriptionId": "6f65205f-d352-482f-970b-a1d2a478fb64",
+  "tenantId": "72f543bf-86f1-41af-91ab-2d7cd011db47",
   "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
   "resourceManagerEndpointUrl": "https://management.azure.com/",
   "activeDirectoryGraphResourceId": "https://graph.windows.net/",
@@ -102,10 +102,10 @@ Reminder, it should look similar to this:
 
 ````
 {
-  "clientId": "96682090-8886-41f5-8c66-032df51cd274",
-  "clientSecret": "8a2feb44-e103-4158-a88d-c83df6d6202e",
-  "subscriptionId": "6f66105f-d352-482f-970b-a1d2a587fb64",
-  "tenantId": "72f988bf-86f1-41af-91ab-2d7cd023db47",
+  "clientId": "8e65cbad-bc58-4cc7-88f4-4eada9450c7d",
+  "clientSecret": "869118ba-a0e1-4bd7-a746-fbeda735bdc6",
+  "subscriptionId": "6f65205f-d352-482f-970b-a1d2a478fb64",
+  "tenantId": "72f543bf-86f1-41af-91ab-2d7cd011db47",
   "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
   "resourceManagerEndpointUrl": "https://management.azure.com/",
   "activeDirectoryGraphResourceId": "https://graph.windows.net/",
@@ -163,3 +163,11 @@ Then commit the change by clicking the **start commit** button
 Give the commit a *good* description and click on **Commit changes** to complete the commit.
 
 This will "save" your change to the repository, and at the same time trigger off the pipeline that will build your AKS Kubernetes cluster.
+
+## Actions
+
+If all went well, a new workflow should have been triggered by yout commit. You can follow the progress of that workflow under that actions tab on the Github toolbar. 
+
+The name of the worksflow should be "AzureARMTest" and there should be a "job" named "build-infra". If you click on "build-infra" you can monitor the progress of the job (or possibly identify errors that prevents the pipeline from finishing...).
+
+Creating an AKS cluster takes a while, perhaps 7-8 minutes. After this you can go into the Azure portal and confirm that your cluster is up and running.
