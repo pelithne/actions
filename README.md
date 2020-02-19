@@ -28,7 +28,7 @@ You need to somehow allow Github to act on "your behalf" when deploying things i
 
 The service principal is simply an identity. You can configure this identity to be allowed to do various things in your azure subscription. 
 
-The easiest way to create a service principal is by using **azure cli**, a.k.a ````az`````. 
+The easiest way to create a service principal is by using **azure cli**, a.k.a ````az````. 
 
 Lets use Azure CLoud shell to do this. In your cloud shell, do the following:
 
