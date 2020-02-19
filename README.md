@@ -57,9 +57,9 @@ For instance, copy this and paste it into a text editor. Do not share it with an
 
 ## Fork Github repository
 
-The easiest way to get the code for this tutorial, is by **forking** the Github repository where I put my code. Forking means that you copy the contents of my repository into a repository in your github account (it´s OK! This is open source after all :-)
+The easiest way to get the code for this tutorial, is by **forking** the Github repository where I put my code. Forking means that you copy the contents of my repository into a repository in your own github account.
 
-To fork the repository, first navigate to <https://github.com/pelithne/aks-pipeline> then select the **fork** button in the top right corner. 
+To fork the repository, first navigate to <https://github.com/pelithne/aks-pipeline> then select the **fork** button in the top right corner.
 
 <p align="left">
   <img width=100%" src="./media/fork.PNG">
@@ -71,15 +71,17 @@ You should now get a forked repository in your account, which looks similar to t
   <img width=100%" src="./media/forked-repo.PNG">
 </p>
 
-When you browse around the files, you will notice that the repository has some template files in the ```` 	arm-templates```` folder, and a pipeline definition in ````.github/workflows````. 
+When you browse around the files, you will notice that the repository has some template files in the ````arm-templates```` folder, and a pipeline definition in ````.github/workflows````. 
 
-The templates are actually **ARM Templates** (Azure Resource Management Templates) and contain the defintions of the resources you will deploy to azure (in this case, a Kubernetes cluster). More about this later.
+The template files are an **ARM Template** (Azure Resource Management Template) and contain the definitions of the resources you will deploy to azure (in this case, a Kubernetes cluster). More about this later.
 
-## Create the Service Principal Secret
+The file ````main.yaml```` in the workflows directory is the pipeline definition, which Github calls workflow. I will be using these terms interchangeably.
+
+## Create the Service Principal
 
 As mentioned before, in order for Github actions to be able to interact with Azure, it needs an identity. For this you will use the service principal you created in a previous step.
 
-In order for Github to be "made aware" of this identity, you will add it into the **secrets vault** in Github. This secret will be referenced by the pipeline.
+In order for Github to be "made aware" of this identity, and the associated credentials, you will add it into the **secrets vault** in Github. This secret will be referenced by the pipeline.
 
 To import the secret to Github, first select **settings** to the right in your github toolbar.
 
@@ -95,7 +97,7 @@ Then selclick on **secrets** in the left hand navigation bar
 
 After this, select **Add new secret** and paste in the entire json object you (hopefully saved before).
 
-Reminder, it should look similar to this:
+Reminder: It should look similar to this:
 
 ````
 {
@@ -120,13 +122,13 @@ Don't forget to click **Add Secret**
 
 When you forked the repository, you also copied the pipeline definition. However, github will deactivate the pipeline on forked repos, so you need to activate it again.
 
-Do that by cliking on **actions** in the Github toolbar
+Do that by clicking on **actions** in the Github toolbar
 
 <p align="left">
   <img width=100%" src="./media/actions.png">
 </p>
 
-You will be asked to to activate workflows. Do that.
+You will be asked to to "go ahead and run" your workflows. Do that.
 
 <p align="left">
   <img width=100%" src="./media/activate-actions.PNG">
@@ -141,7 +143,6 @@ You should see something similar to this
 </p>
 
 Now, in order for this pipeline to "really" become activated, you need to edit the file and make a new commit. To edit the file, select the pen icon to the left:
-
 
 <p align="left">
   <img width=30%" src="./media/pen.png">
@@ -161,15 +162,15 @@ This will "save" your change to the repository, and at the same time trigger off
 
 ## Actions
 
-If all went well, a new workflow should have been triggered by yout commit. You can follow the progress of that workflow under that actions tab on the Github toolbar. 
+If all went well, a new workflow should have been triggered by your commit. You can follow the progress of that workflow under that actions tab on the Github toolbar.
 
-The name of the worksflow should be "AzureARMTest" and there should be a "job" named "build-infra". If you click on "build-infra" you can monitor the progress of the job (or possibly identify errors that prevents the pipeline from finishing...).
+The name of the workflow should be "AzureARMTest" and there should be a "job" named "build-infra". If you click on "build-infra" you can monitor the progress of the job (or possibly identify errors that prevents the pipeline from finishing...).
 
 Creating an AKS cluster takes a while, perhaps 7-8 minutes. After this you can go into the Azure portal and confirm that your cluster is up and running.
 
 ## More details about the pipeline/workflow
 
-If you are curious how the pipeline definition and ARM template works together, I will try to explain that in a little bit more detail. 
+If you are curious how the pipeline definition and ARM template works together, I will try to explain that in a little bit more detail.
 
 First, lets start with the pipeline (a.k.a **workflow**). The definition looks something like this:
 
@@ -248,7 +249,7 @@ Finally, the AKS cluster is created, using Azure CLI
 
 This last command, uses two files as input, a template file and a parameter file. The template file contains the basic definitions of the ARM template, and the parameters file contains parameters which are inserted into the template.
 
-The template file, which is located in ````./arm-templates/template.json```` looks like this:
+The template file, which is located in ````./arm-templates/template.json```` looks like this (most of the content is reasonably self-explanatory but if I find the time I will try to break it down some more)
 
 ````yaml
 {  
