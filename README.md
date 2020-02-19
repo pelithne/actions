@@ -1,6 +1,6 @@
 # Github Actions and Kubernetes on Azure
 
-This tutorial explains how to set up a basic "infrastructure as code"-pipeline to create a Kubernetes cluster in Azure using Azure Kubernetes Service, AKS.
+This tutorial explains how to set up a basic "infrastructure as code"-pipeline in Github to create a Kubernetes cluster in Azure using Azure Kubernetes Service, AKS.
 
 ## Azure subscription
 
