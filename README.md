@@ -14,7 +14,7 @@ At the end of the sign-up, you may be asked to create your first repository, but
 
 ## Azure Portal
 
-To make sure you are correctly setup with a working subscription, make sure you can log in to the Azure portal. Go to <https://portal.azure.com.
+To make sure you are correctly setup with a working subscription, make sure you can log in to the Azure portal. Go to <https://portal.azure.com>
 
 ## Azure Cloud Shell
 
