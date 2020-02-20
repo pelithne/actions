@@ -4,7 +4,7 @@
 on: [push]
 
 env:
-  AZURE_RESOURCE_GROUP: action-rg
+  AZURE_RESOURCE_GROUP: action-rg2
   ARM_TEMPLATE_FILE: template.json
   ARM_PARAMETERS_FILE: params.json
 
@@ -22,5 +22,5 @@ jobs:
     - run: az group create -l westeurope -n ${{ env.AZURE_RESOURCE_GROUP }}
     # Check out code and create AKS cluster using ARM templates
     - uses: actions/checkout@v1 
-    - run: az group deployment create -n test -g ${{ env.AZURE_RESOURCE_GROUP }} --template-file ${{ env.ARM_TEMPLATE_FILE }} --parameters params.json
+    - run: az group deployment create -n test -g ${{ env.AZURE_RESOURCE_GROUP }} --template-file ${{ env.ARM_TEMPLATE_FILE }} --parameters params.json --parameters --parameters servicePrincipalClientId=${{ secrets.AZURE_CREDENTIALS.clientId }} --parameters servicePrincipalClientSecret=${{ secrets.AZURE_CREDENTIALS.clientSecret }}
       working-directory: ./arm-templates
