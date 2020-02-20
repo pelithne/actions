@@ -21,7 +21,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     # Test printing your secret (Remove this step in production)
     - name: print creds
-      run: cat $HOME/secrets/my_secret.json
+      run: cat ${{ secrets.AZURE_CREDENTIALS }}
     # Create Resource Group
     - run: az group create -l westeurope -n ${{ env.AZURE_RESOURCE_GROUP }}
     # Check out code and create AKS cluster using ARM templates
