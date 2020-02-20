@@ -56,6 +56,12 @@
             },
             "type": "securestring"
         },       
+        "servicePrincipal": {
+            "metadata": {
+                "description": "The Service Principal json blob"
+            },
+            "type": "securestring"
+        },  
         "kubernetesVersion": {
             "type": "string",
             "defaultValue": "1.15.7",
