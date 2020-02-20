@@ -16,9 +16,6 @@
             "secretName": "AKS-secret"
         }
     },
-		"servicePrincipalClientId": {
-			"value": "123456"
-		},
 		"agentVMSize": {
             "value": "Standard_B2s"
     },
@@ -27,12 +24,6 @@
     },
     "kubernetesVersion": {
         "value": "1.15.7"
-    },
-    "servicePrincipalClientSecret": {
-      "value": "654321"
-    },
-    "servicePrincipal": {
-      "value": "654321"
     }
 	}
 }
