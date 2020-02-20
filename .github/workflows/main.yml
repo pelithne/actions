@@ -22,5 +22,5 @@ jobs:
     - run: az group create -l westeurope -n ${{ env.AZURE_RESOURCE_GROUP }}
     # Check out code and create AKS cluster using ARM templates
     - uses: actions/checkout@v1 
-    - run: az group deployment create -n test -g ${{ env.AZURE_RESOURCE_GROUP }} --template-file ${{ env.ARM_TEMPLATE_FILE }} --parameters params.json --parameters --parameters servicePrincipalClientId=${{ secrets.AZURE_CREDENTIALS.clientId }} --parameters servicePrincipalClientSecret=${{ secrets.AZURE_CREDENTIALS.clientSecret }}
+    - run: az group deployment create -n test -g ${{ env.AZURE_RESOURCE_GROUP }} --template-file ${{ env.ARM_TEMPLATE_FILE }} --parameters params.json --parameters --parameters servicePrincipal=${{ secrets.AZURE_CREDENTIALS }}
       working-directory: ./arm-templates
