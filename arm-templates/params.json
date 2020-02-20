@@ -8,29 +8,33 @@
 		"dnsPrefix": {
 			"value": "dns"
 		},
-        "sshRSAPublicKey": {
-            "reference": {
-                "keyVault": {
-                  "id": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
-                },
-                "secretName": "AKS-secret"
-            }
-        },
+    "sshRSAPublicKey": {
+        "reference": {
+            "keyVault": {
+              "id": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
+            },
+            "secretName": "AKS-secret"
+        }
+    },
 		"servicePrincipalClientId": {
 			"value": "123456"
 		},
 		"agentVMSize": {
             "value": "Standard_B2s"
-        },
-        "agentCount": {
-            "value": 3
-        },
-        "kubernetesVersion": {
-            "value": "1.15.7"
-        },
-        "servicePrincipalClientSecret": {
-          "value": "654321"
-        }
+    },
+    "agentCount": {
+        "value": 3
+    },
+    "kubernetesVersion": {
+        "value": "1.15.7"
+    },
+    "servicePrincipalClientSecret": {
+      "value": "654321"
+    },
+    "servicePrincipal": {
+      "value": "654321"
+    }
+
 	}
 }
 
