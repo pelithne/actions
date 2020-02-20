@@ -48,7 +48,7 @@
             "metadata": {
                 "description": "The Service Principal json blob"
             },
-            "type": "securestring"
+            "type": "object"
         },  
         "kubernetesVersion": {
             "type": "string",
@@ -111,8 +111,8 @@
                 }
              },
              "servicePrincipalProfile":{  
-                "clientId": "[parameters('servicePrincipal.servicePrincipalClientId')]",
-                "secret": "[parameters('servicePrincipal.servicePrincipalClientSecret')]"
+                "clientId": "[parameters('servicePrincipal').servicePrincipalClientId]",
+                "secret": "[parameters('servicePrincipal').servicePrincipalClientSecret]"
              }
           }
        }
