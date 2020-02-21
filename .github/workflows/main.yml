@@ -9,7 +9,7 @@ env:
   ARM_PARAMETERS_FILE: params.json
   AZURE_KEYVAULT: "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
 
-name: AzureARMTest
+name: AzureARMDeployment
 
 jobs:
   build-infra:
@@ -21,9 +21,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     # Create Resource Group
     - run: az group create -l westeurope -n ${{ env.AZURE_RESOURCE_GROUP }}
-    # Get sp-secret 
-    - run:  az keyvault secret show --vault-name pelithnekeyvault --name aks-sp-name
     # Check out code and create AKS cluster using ARM templates
     - uses: actions/checkout@v1 
-    - run: az group deployment create -n test -g ${{ env.AZURE_RESOURCE_GROUP }} --template-file ${{ env.ARM_TEMPLATE_FILE }} --parameters params.json --parameters 
+    - run: az group deployment create -n test -g ${{ env.AZURE_RESOURCE_GROUP }} --template-file ${{ env.ARM_TEMPLATE_FILE }} --parameters params.json
       working-directory: ./arm-templates
