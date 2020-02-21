@@ -17,7 +17,7 @@
             }
         },
 		"servicePrincipalClientId": {
-			"value": "52b63a54-cdfb-44e7-8955-624c74ef11f3"
+			"value": "8e65cbad-bc58-4cc7-88f4-4eada1710c7d"
 		},
 		"agentVMSize": {
             "value": "Standard_B2s"
