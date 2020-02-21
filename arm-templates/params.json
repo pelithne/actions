@@ -4,45 +4,42 @@
 	"parameters": {
     "resourceName": {
 			"value": "k8s"
-    },
-    "keyvault-string": {
-      "value": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
-    },
-    "dnsPrefix": {
+		},
+		"dnsPrefix": {
 			"value": "dns"
 		},
     "sshRSAPublicKey": {
-      "reference": {
-        "keyVault": {
-          "id": "[parameters('keyvault-string')]"
-        },
-        "secretName": "aks-ssh-key"
-      }
+        "reference": {
+            "keyVault": {
+              "id": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
+            },
+            "secretName": "aks-ssh-key"
+        }
     },
 		"servicePrincipalClientId": {
 			"reference": {
         "keyVault": {
-          "id": "[parameters('keyvault-string')]"
+          "id": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
         },
         "secretName": "aks-sp-name"
       }
-    },
-    "servicePrincipalClientSecret": {
-      "reference": {
-        "keyVault": {
-          "id": "[parameters('keyvault-string')]"
-        },
-        "secretName": "aks-sp-secret"
-      }
-    },
+		},
 		"agentVMSize": {
       "value": "Standard_B2s"
-    },
-    "agentCount": {
-        "value": 3
-    },
-    "kubernetesVersion": {
-        "value": "1.15.7"
-    }  
+        },
+        "agentCount": {
+            "value": 3
+        },
+        "kubernetesVersion": {
+            "value": "1.15.7"
+        },
+        "servicePrincipalClientSecret": {
+          "reference": {
+            "keyVault": {
+              "id": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
+            },
+            "secretName": "aks-sp-secret"
+          }
+        }
 	}
 }
