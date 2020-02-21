@@ -218,21 +218,29 @@ You will be asked to to "go ahead and run" your workflows. Do that.
   <img width=100%" src="./media/activate-actions.PNG">
 </p>
 
-After this, things get a bit unintuitive (at least for now). You need to head back to the repository files, by selecting **code** in the Github toolbar, and then navigate to ````.github/workflows````.  
 
-You should see something similar to this
 
-<p align="left">
-  <img width=100%" src="./media/yaml-pipeline.PNG">
-</p>
+In order for the pipeline to work properly, you need to update the parameter file in the ````arm-templates```` directory. This part of the tutorial is a bit clunky and will hopefully see some improvement ahead...
 
-Now, in order for this pipeline to "really" become activated, you need to edit the file and make a new commit. To edit the file, select the pen icon to the left:
+Browse to the file ````params.json````  in the ````arm-templates```` directory, then start editing the file by clicking the pen in the right corner:
 
 <p align="left">
   <img width=30%" src="./media/pen.png">
 </p>
 
-After opening the file you could for instance add a comment on the second line after the hash-sign (````#````).
+You need to update the file to include references to your keyvault, which is defined in 3 different places in the file. Look for this:
+
+````json
+"keyVault": {
+  "id": "/subscriptions/<Subscription ID>/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/<Your unique keyvault name>"
+},
+````
+
+And change the line to contain your subscription ID and your keyvault.
+
+Then repeat for all the 3 occurrences of the keyvault parameter.
+
+If you followed the naming suggestions for your AKS Service Principle, and AKS Secret you should not have to change anything else for the pipeline to work as it should.
 
 Then commit the change by clicking the **start commit** button
 

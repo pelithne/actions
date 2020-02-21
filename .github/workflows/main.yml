@@ -7,8 +7,7 @@ env:
   AZURE_RESOURCE_GROUP: action-rg2
   ARM_TEMPLATE_FILE: template.json
   ARM_PARAMETERS_FILE: params.json
-  AZURE_KEYVAULT: "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
-
+  
 name: AzureARMDeployment
 
 jobs:
