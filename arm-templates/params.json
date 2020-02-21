@@ -17,7 +17,7 @@
             }
         },
 		"servicePrincipalClientId": {
-			"value": "8e65cbad-bc58-4cc7-88f4-4eada1710c7d"
+			"value": "23210e8a86e34bbba3758b8c98f7c3f3"
 		},
 		"agentVMSize": {
             "value": "Standard_B2s"
@@ -38,3 +38,7 @@
           }
 	}
 }
+
+
+MCVP
+Microsoft Connected Vehicle Platform
