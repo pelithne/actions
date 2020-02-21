@@ -102,6 +102,8 @@ az keyvault create --location westeurope --name <unique keyvault name> --resourc
 
 ## Add AKS Service principal to keyvault
 
+Since the Service Principal is a secret
+
 Add the AKS Service Principal secret to your keyvault:
 
 ````bash
@@ -155,7 +157,7 @@ You should now get a forked repository in your account, which looks similar to t
 
 When you browse around the files, you will notice that the repository has some template files in the ````arm-templates```` folder, and a pipeline definition in ````.github/workflows````. 
 
-The template files are an **ARM Template** (Azure Resource Management Template) and contain the definitions of the resources you will deploy to azure (in this case, a Kubernetes cluster). More about this later.
+The template files constitute an **ARM Template** (Azure Resource Management Template) and contain the definitions of the resources you will deploy to azure (in this case, a Kubernetes cluster). More about this later.
 
 The file ````main.yaml```` in the workflows directory is the pipeline definition, which Github calls workflow. I will be using these terms interchangeably.
 
@@ -199,14 +201,6 @@ Reminder: It should look similar to this:
 The name of the secret should be **AZURE_CREDENTIALS**. (it could be anything, but the pipeline definition expects this name, so if you name it differently there will be some extra hacking).
 
 Don't forget to click **Add Secret**
-
-## Create service principal and secret for AKS
-
-````bash
-
-az ad sp create-for-rbac --skip-assignment --name myAKSClusterServicePrincipal
-
-````
 
 ## Activate Actions
 
