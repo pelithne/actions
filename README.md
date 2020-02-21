@@ -23,7 +23,7 @@ Azure Cloud Shell is a web based shell which has a lot of good tools pre-install
 Start cloud shell by typing the address ````shell.azure.com```` into a web browser. If you have not used cloud shell before, you will be asked to create a storage location for cloud shell. Accept that and make sure that you run bash as your shell (not powershell).
 
 
-## Create a service principal
+## Create a Service Principal for Github
 You need to somehow allow Github to act on "your behalf" when deploying things in Azure. The way this is done, is by creating a **Service Principal**. 
 
 The service principal is simply an identity. You can configure this identity to be allowed to do various things in your azure subscription. 
@@ -33,12 +33,12 @@ The easiest way to create a service principal is by using **azure cli**, a.k.a `
 Lets use Azure CLoud shell to do this. In your cloud shell, do the following:
 
 ````bash
-az ad sp create-for-rbac --sdk-auth --name actionsSP
+az ad sp create-for-rbac --sdk-auth --name githubSP
 ````
 This will create a Service Principal that has the role **Contributor** in your Azure subscription. To read more about roles, have a look here: <https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles>
 
 Output from this command is a json object, and should look something like the below. You will need this output in a later step, so keep it available somehow.
-````
+````json
 {
   "clientId": "8e65cbad-bc58-4cc7-88f4-4eada9450c7d",
   "clientSecret": "869118ba-a0e1-4bd7-a746-fbeda735bdc6",
@@ -54,6 +54,88 @@ Output from this command is a json object, and should look something like the be
 ````
 
 For instance, copy this and paste it into a text editor. Do not share it with anyone, since this can be used to log into your Azure account. In other words: if you share it, prepare to have someone using your azure account to mine bitcoins :-)
+
+## Create Service Principal for AKS
+
+AKS will also need an identity in Azure, since it will create resources like Loadbalancers etc.
+
+In the following example, the --skip-assignment parameter prevents any additional default assignments being assigned
+
+````bash
+az ad sp create-for-rbac --skip-assignment --name KubernetesSP
+````
+
+The output will look similar to this
+````json
+{
+  "appId": "559513bd-0c19-4a1c-87cd-851a26afd5fc",
+  "displayName": "KubernetesSP",
+  "name": "http://KubernetesSP",
+  "password": "e763725a-5eee-40e8-a466-dc88d91e2415",
+  "tenant": "72f988bf-86f1-41af-91ab-2d7cd100db48"
+}
+````
+Hang on to this, as it will be used in a later step.
+
+## Create SSH key pair for AKS
+
+If, by chance, you need to access the nodes in the AKS cluster, you connect using an SSH key pair. Use the ssh-keygen command to generate SSH public and private key files.
+
+The following command creates an SSH key pair using RSA encryption and a bit length of 2048. The keys will be named ````aks-key```` and ````aks-key.pub```` and will be located in the directory from where you executed the command.
+
+````bash
+ssh-keygen -t rsa -b 2048 -f aks-key
+````
+
+In a later step, you will use this key, so make a mental note of this...
+
+## Create Azure Keyvault
+
+Azure Keyvault is a service that can be used to securely store secrets. 
+
+To create a Keyvault you can type the following in cloud shell. The commands first create a Resource Group and then the Keyvault, and places it inside the Resource Group.
+
+````bash
+az group create -l westeurope -n keyvault-rg
+az keyvault create --location westeurope --name keyvault --resource-group keyvault-rg
+````
+
+## Add Service principal to keyvault
+
+Add the Service Principal secret to your keyvault:
+
+````bash
+az keyvault secret set -n aks-sp-secret --vault-name keyvault --value <service principal secret>
+````
+
+Where <service principal secret> is the password value from your service principal, e.g.
+
+````bash
+"e763725a-5eee-40e8-a466-dc88d91e2415"
+````
+
+Then add the Service Principal name as well, which (slightly confusingly) is called app-ip in this case.
+
+````bash
+az keyvault secret set -n aks-sp-name --vault-name keyvault --value <service principal app-id>
+````
+
+Where <service principal app-id> is the app-id value from your service principal, e.g.
+
+````bash
+"559513bd-0c19-4a1c-87cd-851a26afd5fc"
+````
+
+## Add SSH key to keyvault
+
+You should add the ssh key to keyvault, so that the pipeline can retrieve the key. The key pair you generated previously is located in the same directory from where you generated the keys (as mentioned previously).
+
+To add the the key (assuming its named aks-key) to keyvault:
+
+````bash
+az keyvault secret set -n aks-ssh-key --vault-name keyvault --file aks-key
+````
+
 
 ## Fork Github repository
 
@@ -77,7 +159,7 @@ The template files are an **ARM Template** (Azure Resource Management Template) 
 
 The file ````main.yaml```` in the workflows directory is the pipeline definition, which Github calls workflow. I will be using these terms interchangeably.
 
-## Create the Service Principal
+## Insert the Service Principal for Azure in Github
 
 As mentioned before, in order for Github actions to be able to interact with Azure, it needs an identity. For this you will use the service principal you created in a previous step.
 
@@ -99,7 +181,7 @@ After this, select **Add new secret** and paste in the entire json object you (h
 
 Reminder: It should look similar to this:
 
-````
+````json
 {
   "clientId": "8e65cbad-bc58-4cc7-88f4-4eada9450c7d",
   "clientSecret": "869118ba-a0e1-4bd7-a746-fbeda735bdc6",
@@ -117,6 +199,14 @@ Reminder: It should look similar to this:
 The name of the secret should be **AZURE_CREDENTIALS**. (it could be anything, but the pipeline definition expects this name, so if you name it differently there will be some extra hacking).
 
 Don't forget to click **Add Secret**
+
+## Create service principal and secret for AKS
+
+````bash
+
+az ad sp create-for-rbac --skip-assignment --name myAKSClusterServicePrincipal
+
+````
 
 ## Activate Actions
 

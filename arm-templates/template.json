@@ -44,12 +44,18 @@
                 "description": "Configure all linux machines with the SSH RSA public key string. Your key should include three parts, for example 'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm'"
             }
         },
-        "servicePrincipal": {
+        "servicePrincipalClientId": {
             "metadata": {
-                "description": "The Service Principal json blob"
+                "description": "Client ID (used by cloudprovider)"
             },
-            "type": "object"
-        },  
+            "type": "securestring"
+        },
+        "servicePrincipalClientSecret": {
+            "metadata": {
+                "description": "The Service Principal Client Secret."
+            },
+            "type": "securestring"
+        },       
         "kubernetesVersion": {
             "type": "string",
             "defaultValue": "1.15.7",
@@ -111,8 +117,8 @@
                 }
              },
              "servicePrincipalProfile":{  
-                "clientId": "[parameters('servicePrincipal').servicePrincipalClientId]",
-                "secret": "[parameters('servicePrincipal').servicePrincipalClientSecret]"
+                "clientId": "[parameters('servicePrincipalClientId')]",
+                "secret": "[parameters('servicePrincipalClientSecret')]"
              }
           }
        }
