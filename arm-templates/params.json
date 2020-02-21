@@ -21,7 +21,7 @@
               "keyVault": {
                 "id": "/subscriptions/6f66105f-d352-482f-970b-a1d2a478fb64/resourceGroups/KeyVaultRG/providers/Microsoft.KeyVault/vaults/pelithneKeyVault"
               },
-              "secretName": "aks-sp-secret"
+              "secretName": "aks-sp"
             }
 		},
 		"agentVMSize": {
