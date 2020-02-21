@@ -93,19 +93,19 @@ In a later step, you will use this key, so make a mental note of this...
 
 Azure Keyvault is a service that can be used to securely store secrets. 
 
-To create a Keyvault you can type the following in cloud shell. The commands first create a Resource Group and then the Keyvault, and places it inside the Resource Group.
+To create a Keyvault you can type the following in cloud shell. The commands first create a Resource Group and then the Keyvault, and places it inside the Resource Group. The keyvault must have a unique name.  
 
 ````bash
 az group create -l westeurope -n keyvault-rg
-az keyvault create --location westeurope --name keyvault --resource-group keyvault-rg
+az keyvault create --location westeurope --name <unique keyvault name> --resource-group keyvault-rg
 ````
 
-## Add Service principal to keyvault
+## Add AKS Service principal to keyvault
 
-Add the Service Principal secret to your keyvault:
+Add the AKS Service Principal secret to your keyvault:
 
 ````bash
-az keyvault secret set -n aks-sp-secret --vault-name keyvault --value <service principal secret>
+az keyvault secret set -n aks-sp-secret --vault-name <unique keyvault name> --value <service principal secret>
 ````
 
 Where <service principal secret> is the password value from your service principal, e.g.
@@ -117,7 +117,7 @@ Where <service principal secret> is the password value from your service princip
 Then add the Service Principal name as well, which (slightly confusingly) is called app-ip in this case.
 
 ````bash
-az keyvault secret set -n aks-sp-name --vault-name keyvault --value <service principal app-id>
+az keyvault secret set -n aks-sp-name --vault-name <unique keyvault name> --value <service principal app-id>
 ````
 
 Where <service principal app-id> is the app-id value from your service principal, e.g.
@@ -133,7 +133,7 @@ You should add the ssh key to keyvault, so that the pipeline can retrieve the ke
 To add the the key (assuming its named aks-key) to keyvault:
 
 ````bash
-az keyvault secret set -n aks-ssh-key --vault-name keyvault --file aks-key
+az keyvault secret set -n aks-ssh-key --vault-name <unique keyvault name> --file aks-key
 ````
 
 
