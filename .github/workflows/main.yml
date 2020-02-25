@@ -18,6 +18,8 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    #uname
+    - run: uname -a
     # Create Resource Group
     - run: az group create -l westeurope -n ${{ env.AZURE_RESOURCE_GROUP }}
     # Check out code and create AKS cluster using ARM templates
