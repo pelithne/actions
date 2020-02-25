@@ -4,7 +4,7 @@
 on: [push]
 
 env:
-  AZURE_RESOURCE_GROUP: dapr-meetup
+  AZURE_RESOURCE_GROUP: meetup-dapr
   ARM_TEMPLATE_FILE: template.json
   ARM_PARAMETERS_FILE: params.json
   
